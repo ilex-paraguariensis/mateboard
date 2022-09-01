@@ -1,5 +1,7 @@
 # MateBoard
 
+## A simple GUI for mate 
+
 Start with:
 ```
 cd mateboard
