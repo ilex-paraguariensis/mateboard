@@ -1,24 +1,35 @@
 /** @jsx h */
 import { h } from "preact";
-import { useState, useEffect } from "preact/hooks";
-import NavBar from "../routes/NavBar.tsx";
+import { useEffect, useState } from "preact/hooks";
 import { asset } from "$fresh/runtime.ts";
+
+import NavBar from "../components/NavBar.tsx";
 import Config from "../components/Config.tsx";
 import Training from "../components/Training.tsx";
 import Visualizations from "../components/Visualizations.tsx";
+import NavBar from "../components/NavBar.tsx";
+import { MateSummary } from "../components/Interfaces.ts";
 
+type View = "default" | "Config" | "Training" | "Visualizations";
 
-export default function ({experimentName}: {experimentName: string}) {
-	const [experimentConfig, setExperimentConfig] = useState({});
-	useEffect(() => {
-		fetch(`experiments_config/${experimentName}.json`)
-		.then(res => res.json())
-		.then(data => setExperimentConfig(data));
-	} , []);
-	const results = []
-	const views = {
+const App = () => {
+  const [mateSummary, setMateSummary] = useState(
+    { experiments: [] } as unknown as MateSummary,
+  );
+  const [view, setView] = useState("" as View);
+  const experiments = mateSummary.experiments;
+  const namedSections = {
+    "default": <ExperimentsOverview experiments={experiments} />,
+    "Config": <Config />,
+    "Training": <Training />,
+    "Visualizations": <Visualizations />,
+  } as Record<View, Element>;
 
-	}
+  useEffect(() => {
+    fetch(`mate_summary.json`)
+      .then((res) => res.json())
+      .then((data) => setMateSummary(data));
+  }, [1]);
   return (
     <div>
       <link
@@ -32,11 +43,8 @@ export default function ({experimentName}: {experimentName: string}) {
       <div class="App">
         <NavBar
           title="MateBoard"
-          sections={["Training", "Visualizations", "Config", "TensorBoard"]}
-          activeSection="Results"
-					root={`${experimentName}/`}
+          sections={namedSections}
         />
-				<div style={{marginTop:"10vh"}}>{results.map(result => <ResultDisplay {...result} />)}</div>
       </div>
       <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
@@ -46,4 +54,6 @@ export default function ({experimentName}: {experimentName: string}) {
       </script>
     </div>
   );
-}
+};
+
+export default App;

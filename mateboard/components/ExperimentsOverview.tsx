@@ -118,7 +118,8 @@ export default function ExperimentOverview(
     <div style={{ textAlign: "center", marginTop: "10vh" }}>
       <link rel="stylesheet" href={asset("ExperimentOverview.css")} />
       {experiments.map((experiment) => (
-        <div onClick={()=>location.href=`experiments/${experiment.name}`}
+        <div
+          onClick={() => location.href = `experiments/${experiment.name}`}
           class="card"
           style={{
             "width": "25rem",

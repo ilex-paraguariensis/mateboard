@@ -1,24 +1,38 @@
 /** @jsx h */
 import { h } from "preact";
-// import "./App.css";
-import NavBar from "../routes/NavBar.tsx";
-import ExperimentsOverview from "../routes/ExperimentsOverview.tsx";
-import {  MateSummary } from "../routes/Interfaces.ts";
 import { asset } from "$fresh/runtime.ts";
-import { useState, useEffect } from "preact/hooks";
-console.log(ExperimentsOverview);
+import { useEffect, useState } from "preact/hooks";
+
+import NavBar from "../components/NavBar.tsx";
+import Results from "../components/Results.tsx";
+import Models from "../components/Models.tsx";
+import Trainers from "../components/Trainers.tsx";
+import Datasets from "../components/Datasets.tsx";
+import ExperimentsOverview from "../components/ExperimentsOverview.tsx";
+import { MateSummary } from "../components/Interfaces.ts";
+
+type View = "default" | "Results" | "Models" | "Trainers" | "Datasets";
+
 const App = () => {
-	const [mateSummary, setMateSummary] = useState({experiments:[]} as unknown as MateSummary);
-	console.log('hey')
-	console.log(mateSummary);
-	console.log(ExperimentsOverview);
-	useEffect(() => {
-		fetch(`mate_summary.json`)
-		.then(res => res.json())
-		.then(data => setMateSummary(data));
-	} , [1]);
-	const experiments = mateSummary.experiments;
-	return (
+  const [mateSummary, setMateSummary] = useState(
+    { experiments: [] } as unknown as MateSummary,
+  );
+  const [view, setView] = useState("" as View);
+  const experiments = mateSummary.experiments;
+  const namedSections = {
+    "default": <ExperimentsOverview experiments={experiments} />,
+    "Results": <Results />,
+    "Models": <Models />,
+    "Trainers": <Trainers />,
+    "Datasets": <Datasets />,
+  } as Record<View, Element>;
+
+  useEffect(() => {
+    fetch(`mate_summary.json`)
+      .then((res) => res.json())
+      .then((data) => setMateSummary(data));
+  }, [1]);
+  return (
     <div>
       <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
@@ -31,10 +45,8 @@ const App = () => {
       <div class="App">
         <NavBar
           title="MateBoard"
-          sections={["Results", "Models", "Trainers", "Datasets"]}
-					activeSection=""
+          sections={namedSections}
         />
-        <ExperimentsOverview experiments={experiments} />
       </div>
       <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
