@@ -34,12 +34,13 @@ export default (
             maxWidth: "1000px",
             marginLeft: "auto",
             marginRight: "auto",
+						border: "1px solid black",
           }}
         >
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Experiment Name</th>
+              <th scope="col">Name</th>
               {metrics.map((metric) => <th scope="col">{metric}</th>)}
             </tr>
           </thead>
