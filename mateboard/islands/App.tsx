@@ -19,14 +19,14 @@ const App = () => {
   );
   const [view, setView] = useState("" as View);
   const experiments = mateSummary.experiments;
-  const namedSections = {
-    "default": <ExperimentsOverview experiments={experiments} />,
+  const defaultSections = {
     "Results": <Results />,
     "Models": <Models />,
     "Trainers": <Trainers />,
     "Datasets": <Datasets />,
-  } as Record<View, Element>;
-
+  } as Record<View, h.JSX.Element>;
+  const [sections, setSections] = useState(defaultSections);
+  const [section, setSection] = useState("default");
   useEffect(() => {
     fetch(`mate_summary.json`)
       .then((res) => res.json())
@@ -42,10 +42,28 @@ const App = () => {
       />
 
       <link rel="stylesheet" href={asset("App.css")} />
+      <style>
+        {`html, body {
+				 		background-color: #37474F;
+
+				}	
+				`}
+      </style>
       <div class="App">
         <NavBar
           title="MateBoard"
-          sections={namedSections}
+          sections={sections}
+          defaultSections={defaultSections}
+          defaultSection={
+            <ExperimentsOverview
+              experiments={experiments}
+              setSections={setSections}
+              setSection={setSection}
+            />
+          }
+          setSections={setSections}
+          section={section}
+          setSection={setSection}
         />
       </div>
       <script

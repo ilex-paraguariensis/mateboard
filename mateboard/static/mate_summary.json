@@ -38,7 +38,72 @@
   ],
   "experiments": [
     {
+      "id": "basic_mnist_1",
       "status": "running",
+      "name": "test",
+      "config": {
+        "trainer": {
+          "name": "basic_mnist",
+          "args": {
+            "lightning_trainer": {
+              "class_name": "Trainer",
+              "args": {
+                "accelerator": "gpu",
+                "devices": 1,
+                "max_epochs": 10
+              }
+            },
+            "classifier": {
+              "name": "cnn",
+              "args": {
+                "channels": 1
+              }
+            }
+          }
+        },
+        "dataset": {
+          "name": "mnist_data_loader",
+          "args": {
+            "batch_size": 32
+          }
+        }
+      }
+    },
+    {
+      "id": "basic_mnist_2",
+      "status": "run",
+      "name": "test",
+      "config": {
+        "trainer": {
+          "name": "basic_mnist",
+          "args": {
+            "lightning_trainer": {
+              "class_name": "Trainer",
+              "args": {
+                "accelerator": "gpu",
+                "devices": 1,
+                "max_epochs": 10
+              }
+            },
+            "classifier": {
+              "name": "cnn",
+              "args": {
+                "channels": 1
+              }
+            }
+          }
+        },
+        "dataset": {
+          "name": "mnist_data_loader",
+          "args": {
+            "batch_size": 32
+          }
+        }
+      }
+    },
+    {
+      "id": "basic_mnist_3",
+      "status": "never-run",
       "name": "test",
       "config": {
         "trainer": {

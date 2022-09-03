@@ -5,127 +5,115 @@ import { Experiment } from "./Interfaces.ts";
 // import "./ExperimentOverview.css";
 import { asset } from "$fresh/runtime.ts";
 
+import Config from "../components/Config.tsx";
+import Training from "../components/Training.tsx";
+import Visualizations from "../components/Visualizations.tsx";
+import ExperimentControl from "../components/ExperimentControl.tsx";
+
 function Status(
   { statusValue }: { statusValue: "running" | "run" | "never-run" },
 ) {
-  if (statusValue === "running") {
-    return (
-      <div class="input-group mb-3">
-        <input
-          type="text"
-          class="form-control"
-          value="Status:"
-          disabled
-          aria-label="Text input with checkbox"
-        />
-        <input
-          type="text"
-          class="form-control"
-          value="running"
-          disabled
-          aria-label="Text input with checkbox"
-        />
+  const status = {
+    "running": (
+      <div style={{ textAlign: "right", padding: 0 }}>
         <div
-          class="input-group-text"
-          style={{ padding: 0, margin: 0, textAlign: "center" }}
+          style={{
+            transform: "scale(0.5)",
+            margin: 0,
+            padding: 0,
+            maxHeight: "20px",
+            width: "100%",
+            textAlign: "right",
+          }}
         >
           <div
             style={{
+              textAlign: "right",
               transform: "scale(0.5)",
-              margin: 0,
+              marginTop: -13,
+              marginLeft: 0,
+              marginRight: -235,
               padding: 0,
-              maxHeight: "20px",
-              maxWidth: "50px",
-              textAlign: "center",
+              backgroundColor: "white",
+              border: "3px solid black",
             }}
+            class="loader"
           >
-            <div
-              style={{ margin: 0, padding: 0 }}
-              class="loader"
-            >
-            </div>
           </div>
         </div>
       </div>
-    );
-  } else if (statusValue === "run") {
-    return (
-      <div class="input-group mb-3">
+    ),
+    "run": (
+      <div style={{ textAlign: "right" }}>
         <input
-          type="text"
-          class="form-control"
-          value="Status:"
-          disabled
-          aria-label="Text input with checkbox"
+          class="form-check-input mt-0"
+          style={{
+            width: "25px",
+            height: "25px",
+            backgroundColor: "green",
+            borderRadius: "50%",
+            border: "2px solid black",
+          }}
+          checked
+          type="checkbox"
+          onClick={() => {}}
+          value=""
+          aria-label="Checkbox for following text input"
         />
-        <input
-          type="text"
-          class="form-control"
-          value="run"
-          disabled
-          aria-label="Text input with checkbox"
-        />
-        <div class="input-group-text">
-          <input
-            style={{ backgroundColor: "green" }}
-            disabled
-            class="form-check-input mt-0"
-            checked
-            type="checkbox"
-            value=""
-            aria-label="Checkbox for following text input"
-          />
-        </div>
       </div>
-    );
-  } else if (statusValue === "never-run") {
-    return (
-      <div class="input-group mb-3">
+    ),
+    "never-run": (
+      <div style={{ textAlign: "right" }}>
         <input
-          type="text"
-          class="form-control"
-          value="Status:"
+          style={{
+            width: "25px",
+            height: "25px",
+            borderRadius: "50%",
+            backgroundColor: "white",
+            border: "2px solid black",
+          }}
           disabled
-          aria-label="Text input with checkbox"
+          class="form-check-input mt-0"
+          type="checkbox"
+          value=""
+          aria-label="Checkbox for following text input"
         />
-        <input
-          type="text"
-          class="form-control"
-          value="never run"
-          disabled
-          aria-label="Text input with checkbox"
-        />
-        <div class="input-group-text">
-          <input
-            style={{ backgroundColor: "white" }}
-            disabled
-            class="form-check-input mt-0"
-            type="checkbox"
-            value=""
-            aria-label="Checkbox for following text input"
-          />
-        </div>
       </div>
-    );
-  } else {
-    return <div>hey</div>;
-  }
+    ),
+  };
+  return (
+    status[statusValue]
+  );
 }
 export default function ExperimentOverview(
-  { experiments }: { experiments: Experiment[] },
+  { experiments, setSections, setSection }: {
+    experiments: Experiment[];
+    setSections: (sections: Record<string, h.JSX.Element>) => void;
+    setSection: (section: string) => void;
+  },
 ) {
   return (
     <div style={{ textAlign: "center", marginTop: "10vh" }}>
       <link rel="stylesheet" href={asset("ExperimentOverview.css")} />
       {experiments.map((experiment) => (
         <div
-          onClick={() => location.href = `experiments/${experiment.name}`}
+          onClick={() => {
+            setSections({
+              "Control": <ExperimentControl experiment={experiment} />,
+              "Config": <Config />,
+              "Training": <Training />,
+              "Visualizations": <Visualizations />,
+            } as Record<string, h.JSX.Element>);
+            setSection("Control");
+          }}
           class="card"
           style={{
             "width": "25rem",
             "display": "block",
             "marginLeft": "auto",
             "marginRight": "auto",
+            marginBottom: "5px",
+            backgroundColor: "#D0FFC6",
           }}
         >
           <div class="card-body">

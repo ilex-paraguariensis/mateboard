@@ -5,7 +5,11 @@ import NavBar from "./NavBar.tsx";
 import ResultDisplay from "./ResultDisplay.tsx";
 import { Result } from "./Interfaces.ts";
 import { asset } from "$fresh/runtime.ts";
-const App = () => {
+export default (
+  { setSections }: {
+    setSections: (sections: Record<string, h.JSX.Element>) => void;
+  },
+) => {
   const results: Result[] = [
     {
       dataset: "MNIST",
@@ -43,10 +47,10 @@ const App = () => {
     },
   ];
   return (
-    <div style={{ marginTop: "10vh" }}>
-          {results.map((result) => <ResultDisplay {...result} />)}
+    <div style={{ marginTop: "10vh", textAlign: "center" }}>
+      {results.map((result) => (
+        <ResultDisplay result={result} setSections={setSections} />
+      ))}
     </div>
   );
 };
-
-export default App;
