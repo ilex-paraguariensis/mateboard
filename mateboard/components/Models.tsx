@@ -61,7 +61,7 @@ export default function (
             <p class="card-text">
               {model.description}
             </p>
-            <a style={{ fontSize: "15px" }} href={model.source}  target="_blank">
+            <a style={{ fontSize: "15px" }} href={model.source} target="_blank">
               {model.source}
             </a>
           </div>

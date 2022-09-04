@@ -6,10 +6,12 @@ import ProgressBar from "./ProgressBar.tsx";
 export default ({ experiment }: { experiment: Experiment }) => {
   return (
     <div style={{ textAlign: "center", width: "100%" }}>
-			{/*
+      {
+        /*
 			<ProgressBar totalTime={100} color="red"></ProgressBar>
-			*/}
-			<ProgressBar totalTime={10000} color="green"></ProgressBar>
+			*/
+      }
+      <ProgressBar totalTime={10000} color="green"></ProgressBar>
       <div
         id="plot"
         style={{
