@@ -61,7 +61,6 @@ export default function NavBar(
                     class={`nav-link ${sectionName === section && "active"}`}
                     aria-current="page"
                     onClick={() => {
-                      console.log({ sectionName });
                       setSection(sectionName);
                     }}
                   >

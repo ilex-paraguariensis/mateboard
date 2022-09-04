@@ -17,10 +17,9 @@ export default (
         {
           name: "ResNet",
           metrics: {
-						Accuracy: 0.95,
+            Accuracy: 0.95,
             Precision: 0.95,
-						Recall: 0.95,	
-
+            Recall: 0.95,
           },
         },
         {
@@ -28,7 +27,7 @@ export default (
           metrics: {
             Accuracy: 0.95,
             Precision: 0.95,
-						Recall: 0.95,	
+            Recall: 0.95,
           },
         },
       ],
@@ -40,18 +39,16 @@ export default (
           name: "ResNet",
           metrics: {
             Accuracy: 0.8,
-						Precision: 0.95,
-						Recall: 0.95,	
-
+            Precision: 0.95,
+            Recall: 0.95,
           },
         },
         {
           name: "ViT",
           metrics: {
             Accuracy: 0.95,
-						Precision: 0.95,
-						Recall: 0.95,	
-
+            Precision: 0.95,
+            Recall: 0.95,
           },
         },
       ],

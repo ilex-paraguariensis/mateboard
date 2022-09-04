@@ -1,11 +1,40 @@
 /** @jsx h */
 import { h } from "preact";
 import { Experiment } from "./Interfaces.ts";
+import ProgressBar from "./ProgressBar.tsx";
 
 export default ({ experiment }: { experiment: Experiment }) => {
-  console.log(experiment);
   return (
     <div style={{ textAlign: "center", width: "100%" }}>
+			{/*
+			<ProgressBar totalTime={100} color="red"></ProgressBar>
+			*/}
+			<ProgressBar totalTime={10000} color="green"></ProgressBar>
+      <div
+        id="plot"
+        style={{
+          marginLeft: "auto",
+          marginRight: "auto",
+          maxWidth: "1000px",
+          marginBottom: "10px",
+        }}
+      >
+      </div>
+      <script>
+        {`
+				var xs = [1, 2, 3, 4, 5];
+				var y = xs.map((x) => 1/Math.exp(x));
+				var trace1 = {
+					x: xs,
+					y: y,
+					type: 'scatter'
+				};
+
+				var data = [trace1];
+
+				Plotly.newPlot('plot', data);
+				`}
+      </script>
       <div
         class="card"
         style={{
@@ -19,24 +48,24 @@ export default ({ experiment }: { experiment: Experiment }) => {
           type="button"
           class="btn btn-danger btn-lg btn-block"
           disabled={experiment.status !== "running"}
-					style={{ marginBottom: "5px" }}
+          style={{ marginBottom: "5px" }}
         >
-          Stop
+          Stop Training
         </button>
         <button
           type="button"
-          class="btn btn-primary btn-lg btn-block"
+          class="btn btn-success btn-lg btn-block"
           disabled={experiment.status === "running"}
-					style={{ marginBottom: "5px" }}
+          style={{ marginBottom: "5px" }}
         >
           Train
         </button>
         <button
           type="button"
-          class="btn btn-primary btn-lg btn-block"
+          class="btn btn-success btn-lg btn-block"
           disabled={experiment.status === "running" ||
             experiment.status === "never-run"}
-					style={{ marginBottom: "5px" }}
+          style={{ marginBottom: "5px" }}
         >
           Test
         </button>

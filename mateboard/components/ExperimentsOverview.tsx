@@ -32,7 +32,7 @@ function Status(
               transform: "scale(0.5)",
               marginTop: -13,
               marginLeft: 0,
-              marginRight: -235,
+              marginRight: -45,
               padding: 0,
               backgroundColor: "white",
               border: "3px solid black",
@@ -85,7 +85,7 @@ function Status(
     status[statusValue]
   );
 }
-export default function ExperimentOverview(
+export default function (
   { experiments, setSections, setSection }: {
     experiments: Experiment[];
     setSections: (sections: Record<string, h.JSX.Element>) => void;
@@ -95,6 +95,21 @@ export default function ExperimentOverview(
   return (
     <div style={{ textAlign: "center", marginTop: "10vh" }}>
       <link rel="stylesheet" href={asset("ExperimentOverview.css")} />
+      <button
+        type="button"
+        class="btn btn-success"
+        style={{
+          textAlign: "center",
+          marginBottom: "10px",
+          borderRadius: "50%",
+          maxHeight: "43px",
+          maxWidth: "43px",
+        }}
+        onClick={() => {}}
+      >
+        <span style={{ marginLeft: "auto", marginRight: "auto" }}>+</span>
+      </button>
+
       {experiments.map((experiment) => (
         <div
           onClick={() => {
@@ -119,9 +134,24 @@ export default function ExperimentOverview(
           <div class="card-body">
             <h5 class="card-title">{experiment.name}</h5>
             <p class="card-text">
-							{experiment.description}
+              {experiment.description}
             </p>
-            <Status statusValue={experiment.status} />
+            <table style={{ width: "100%" }}>
+              <tbody>
+                <tr>
+                  <td style={{ textAlign: "left" }}>
+                    <img
+                      src="delete_icon.png"
+                      style={{ height: "20px", width: "20px" }}
+                    >
+                    </img>
+                  </td>
+                  <td>
+                    <Status statusValue={experiment.status} />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       ))}

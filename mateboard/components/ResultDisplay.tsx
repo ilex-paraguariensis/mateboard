@@ -7,11 +7,13 @@ export default (
     result: Result;
   },
 ) => {
-  console.log(result);
   const metrics = Object.keys(result.experiments[0].metrics);
-
   return (
     <div style={{ textAlign: "center", widht: "100%" }}>
+      <link
+        href="https://fonts.googleapis.com/css?family=Prompt"
+        rel="stylesheet"
+      />
       <div
         class="card"
         style={{
@@ -34,7 +36,7 @@ export default (
             maxWidth: "1000px",
             marginLeft: "auto",
             marginRight: "auto",
-						border: "1px solid black",
+            border: "1px solid black",
           }}
         >
           <thead>
@@ -54,6 +56,19 @@ export default (
             ))}
           </tbody>
         </table>
+        <div style={{ textAlign: "right" }}>
+          <img
+            src="download_icon.png"
+            onClick={() => {}}
+            style={{
+              height: "30px",
+              width: "30px",
+              marginBottom: "20px",
+              marginRight: "20px",
+            }}
+          >
+          </img>
+        </div>
       </div>
     </div>
   );

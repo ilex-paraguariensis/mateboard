@@ -15,13 +15,12 @@ type View = "default" | "Results" | "Models" | "Trainers" | "Datasets";
 
 const App = () => {
   const [mateSummary, setMateSummary] = useState(
-    { experiments: [] } as unknown as MateSummary,
+    { models: [], experiments: [] } as unknown as MateSummary,
   );
   const [view, setView] = useState("" as View);
-  const experiments = mateSummary.experiments;
   const defaultSections = {
     "Results": <Results />,
-    "Models": <Models />,
+    "Models": <Models models={mateSummary.models} />,
     "Trainers": <Trainers />,
     "Datasets": <Datasets />,
   } as Record<View, h.JSX.Element>;
@@ -30,8 +29,16 @@ const App = () => {
   useEffect(() => {
     fetch(`mate_summary.json`)
       .then((res) => res.json())
-      .then((data) => setMateSummary(data));
+      .then((data) =>
+        setMateSummary(() => {
+          defaultSections["Models"] = <Models models={data.models} />;
+          return data;
+        })
+      );
   }, [1]);
+  console.log(mateSummary.models);
+  const experiments = mateSummary.experiments;
+
   return (
     <div>
       <link
@@ -40,7 +47,8 @@ const App = () => {
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
         crossOrigin="anonymous"
       />
-
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script src="https://cdn.plot.ly/plotly-2.14.0.min.js"></script>
       <link rel="stylesheet" href={asset("App.css")} />
       <style>
         {`html, body {
