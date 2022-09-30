@@ -10,7 +10,7 @@ class MateBoard:
         try:
             output = subprocess.check_output("deno", shell=True)                       
         except subprocess.CalledProcessError as grepexc:                                                                                                   
-            print("error code", grepexc.returncode, grepexc.output)
+            print("Looks like you don't have deno installed")
         subprocess.Popen('deno task start'.split(), cwd=os.path.join(os.path.dirname(__file__), "mateboard"))
 
     def stop(self):
