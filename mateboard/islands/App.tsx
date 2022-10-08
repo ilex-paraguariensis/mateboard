@@ -27,16 +27,18 @@ const App = () => {
   const [sections, setSections] = useState(defaultSections);
   const [section, setSection] = useState("default");
   useEffect(() => {
-    fetch(`mate_summary.json`)
+    fetch(`http://localhost:3001/mate_summary`)
       .then((res) => res.json())
       .then((data) =>
         setMateSummary(() => {
+
           defaultSections["Models"] = <Models models={data.models} />;
+					// const experiments = 
+
           return data;
         })
       );
   }, [1]);
-  console.log(mateSummary.models);
   const experiments = mateSummary.experiments;
 
   return (

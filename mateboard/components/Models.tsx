@@ -26,6 +26,7 @@ export default function (
       }
     });
   };
+	console.log(models)
   return (
     <div style={{ textAlign: "center", marginTop: "10vh" }}>
       <div style={{ textAlign: "center", width: "100%" }}>
@@ -44,8 +45,11 @@ export default function (
           <span style={{ marginLeft: "auto", marginRight: "auto" }}>+</span>
         </button>
       </div>
-      {models.map((model) => (
-        <div
+      {Object.entries(models).map((entry:[string, Record<string, unknown>]) => {
+				const [localName, model] = entry
+				console.log(`hey ${localName}:${model}`)
+				console.log(model.url)
+        return <div
           class="card"
           style={{
             width: "25rem",
@@ -57,16 +61,16 @@ export default function (
           }}
         >
           <div class="card-body">
-            <h5 class="card-title">{model.name}</h5>
+            <h5 class="card-title">Local Name: {localName}</h5>
             <p class="card-text">
               {model.description}
             </p>
-            <a style={{ fontSize: "15px" }} href={model.source} target="_blank">
-              {model.source}
+            <a style={{ fontSize: "15px" }} href={model.url} target="_blank">
+              {model.url}
             </a>
           </div>
         </div>
-      ))}
+			})}
     </div>
   );
 }

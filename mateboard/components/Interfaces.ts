@@ -16,10 +16,26 @@ interface Result {
   }[];
 }
 interface Package {
-  name: string;
-  id: string;
-  source: string;
-  args: DeepJSONValue;
+  url: string;
+	author: string;
+	category: string;
+	descripton: string;
+	license: string;
+	backbone: "lightning" | "keras" | "jax";
+	type: string;
+	version: string;
+  exports: {
+		classes: {
+			class_name:string;
+			module:string;
+			params:Record<string, JSONValue>;
+			samples:{
+				experiment:Record<string, JSONValue>;
+				sample:Record<string, JSONValue>;
+			}
+		}[];
+		functions: {}[];
+	}
 }
 interface PackageReference {
   id: string;
