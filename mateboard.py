@@ -14,8 +14,8 @@ class MateBoard:
         except subprocess.CalledProcessError as grepexc:                                                                                                   
             raise Exception("Deno not installed. Please install deno and try again.") from grepexc
         if deno_installed:
-            subprocess.Popen('deno task start'.split(), cwd=os.path.join(os.path.dirname(__file__), "mateboard"))
-            webbrowser.open("http://localhost:8000")
+            subprocess.Popen('npm start'.split(), cwd=os.path.join(os.path.dirname(__file__), "mateboard"))
+            webbrowser.open("http://localhost:3000")
 
 
     def stop(self):
