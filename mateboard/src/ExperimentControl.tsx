@@ -1,16 +1,12 @@
-/** @jsx h */
-import { h } from "preact";
-import { Experiment } from "./Interfaces.ts";
-import ProgressBar from "./ProgressBar.tsx";
+import { Experiment } from "./Interfaces";
+import ProgressBar from "./ProgressBar";
 
 export default ({ experiment }: { experiment: Experiment }) => {
   return (
     <div style={{ textAlign: "center", width: "100%" }}>
-      {
-        /*
+      {/*
 			<ProgressBar totalTime={100} color="red"></ProgressBar>
-			*/
-      }
+			*/}
       <ProgressBar totalTime={10000} color="green"></ProgressBar>
       <div
         id="plot"
@@ -20,8 +16,7 @@ export default ({ experiment }: { experiment: Experiment }) => {
           maxWidth: "1000px",
           marginBottom: "10px",
         }}
-      >
-      </div>
+      ></div>
       <script>
         {`
 				var xs = [1, 2, 3, 4, 5];
@@ -38,17 +33,17 @@ export default ({ experiment }: { experiment: Experiment }) => {
 				`}
       </script>
       <div
-        class="card"
+        className="card"
         style={{
           padding: "5px",
-          "width": "25rem",
+          width: "25rem",
           marginLeft: "auto",
           marginRight: "auto",
         }}
       >
         <button
           type="button"
-          class="btn btn-danger btn-lg btn-block"
+          className="btn btn-danger btn-lg btn-block"
           disabled={experiment.status !== "running"}
           style={{ marginBottom: "5px" }}
         >
@@ -56,7 +51,7 @@ export default ({ experiment }: { experiment: Experiment }) => {
         </button>
         <button
           type="button"
-          class="btn btn-success btn-lg btn-block"
+          className="btn btn-success btn-lg btn-block"
           disabled={experiment.status === "running"}
           style={{ marginBottom: "5px" }}
         >
@@ -64,9 +59,10 @@ export default ({ experiment }: { experiment: Experiment }) => {
         </button>
         <button
           type="button"
-          class="btn btn-success btn-lg btn-block"
-          disabled={experiment.status === "running" ||
-            experiment.status === "never-run"}
+          className="btn btn-success btn-lg btn-block"
+          disabled={
+            experiment.status === "running" || experiment.status === "never-run"
+          }
           style={{ marginBottom: "5px" }}
         >
           Test

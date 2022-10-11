@@ -1,15 +1,10 @@
-/** @jsx h */
-import { h } from "preact";
-// import "./App.css";
-import NavBar from "./NavBar.tsx";
-import ResultDisplay from "./ResultDisplay.tsx";
-import { Result } from "./Interfaces.ts";
-import { asset } from "$fresh/runtime.ts";
-export default (
-  { setSections }: {
-    setSections: (sections: Record<string, h.JSX.Element>) => void;
-  },
-) => {
+import ResultDisplay from "./ResultDisplay";
+import { Result } from "./Interfaces";
+export default ({
+  setSections,
+}: {
+  setSections: (sections: Record<string, JSX.Element>) => void;
+}) => {
   const results: Result[] = [
     {
       dataset: "MNIST",
@@ -57,7 +52,7 @@ export default (
   return (
     <div style={{ marginTop: "10vh", textAlign: "center" }}>
       {results.map((result) => (
-        <ResultDisplay result={result} setSections={setSections} />
+        <ResultDisplay result={result} />
       ))}
     </div>
   );

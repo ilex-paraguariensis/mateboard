@@ -1,6 +1,4 @@
-/** @jsx h */
-import { h } from "preact";
-import { useEffect, useState } from "preact/hooks";
+import { useState, useEffect } from "react";
 
 export default ({ totalTime, color }: { totalTime: number; color: string }) => {
   const [time, setTime] = useState(0);
@@ -18,7 +16,7 @@ export default ({ totalTime, color }: { totalTime: number; color: string }) => {
   }, []);
   return (
     <div
-      class="progress"
+      className="progress"
       style={{
         maxWidth: "1000px",
         marginLeft: "auto",
@@ -27,16 +25,15 @@ export default ({ totalTime, color }: { totalTime: number; color: string }) => {
       }}
     >
       <div
-        class={`progress-bar progress-bar-striped ${
+        className={`progress-bar progress-bar-striped ${
           color === "red" ? "bg-danger" : "bg-success"
-        }`}
+       }`}
         role="progressbar"
         style={{ width: `${time}%` }}
-        aria-valuenow="50"
-        aria-valuemin="0"
-        aria-valuemax="100"
-      >
-      </div>
+        aria-valuenow={50}
+        aria-valuemin={0}
+        aria-valuemax={100}
+      ></div>
     </div>
   );
 };

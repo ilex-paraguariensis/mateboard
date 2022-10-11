@@ -1,29 +1,27 @@
-/** @jsx h */
-import { h } from "preact";
-import { asset } from "$fresh/runtime.ts";
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useState } from "react";
 
-import NavBar from "../components/NavBar.tsx";
-import Results from "../components/Results.tsx";
-import Models from "../components/Models.tsx";
-import Trainers from "../components/Trainers.tsx";
-import Datasets from "../components/Datasets.tsx";
-import ExperimentsOverview from "../components/ExperimentsOverview.tsx";
-import { MateSummary } from "../components/Interfaces.ts";
+import NavBar from "./NavBar";
+import Results from "./Results";
+import Models from "./Models";
+import Trainers from "./Trainers";
+import Datasets from "./Datasets";
+import ExperimentsOverview from "./ExperimentsOverview";
+import { MateSummary } from "./Interfaces";
 
 type View = "default" | "Results" | "Models" | "Trainers" | "Datasets";
 
 const App = () => {
-  const [mateSummary, setMateSummary] = useState(
-    { models: [], experiments: [] } as unknown as MateSummary,
-  );
+  const [mateSummary, setMateSummary] = useState({
+    models: [],
+    experiments: [],
+  } as unknown as MateSummary);
   const [view, setView] = useState("" as View);
   const defaultSections = {
-    "Results": <Results />,
-    "Models": <Models models={mateSummary.models} />,
-    "Trainers": <Trainers />,
-    "Datasets": <Datasets />,
-  } as Record<View, h.JSX.Element>;
+    Results: <Results setSections={()=>{}}/>,
+    Models: <Models models={mateSummary.models} />,
+    Trainers: <Trainers />,
+    Datasets: <Datasets />,
+  } as Record<View, JSX.Element>;
   const [sections, setSections] = useState(defaultSections);
   const [section, setSection] = useState("default");
   useEffect(() => {
@@ -31,9 +29,8 @@ const App = () => {
       .then((res) => res.json())
       .then((data) =>
         setMateSummary(() => {
-
           defaultSections["Models"] = <Models models={data.models} />;
-					// const experiments = 
+          // const experiments =
 
           return data;
         })
@@ -43,7 +40,7 @@ const App = () => {
 
   return (
     <div>
-			<title>Maté</title>
+      <title>Maté</title>
       <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
         rel="stylesheet"
@@ -52,7 +49,6 @@ const App = () => {
       />
       <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <script src="https://cdn.plot.ly/plotly-2.14.0.min.js"></script>
-      <link rel="stylesheet" href={asset("App.css")} />
       <style>
         {`html, body {
 				 		background-color: #37474F;
@@ -60,7 +56,7 @@ const App = () => {
 				}	
 				`}
       </style>
-      <div class="App">
+      <div className="App">
         <NavBar
           title="MateBoard"
           sections={sections}
@@ -81,8 +77,7 @@ const App = () => {
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
         crossOrigin="anonymous"
-      >
-      </script>
+      ></script>
     </div>
   );
 };

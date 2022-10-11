@@ -17,25 +17,25 @@ interface Result {
 }
 interface Package {
   url: string;
-	author: string;
-	category: string;
-	descripton: string;
-	license: string;
-	backbone: "lightning" | "keras" | "jax";
-	type: string;
-	version: string;
+  author: string;
+  category: string;
+  description: string;
+  license: string;
+  backbone: "lightning" | "keras" | "jax";
+  type: string;
+  version: string;
   exports: {
-		classes: {
-			class_name:string;
-			module:string;
-			params:Record<string, JSONValue>;
-			samples:{
-				experiment:Record<string, JSONValue>;
-				sample:Record<string, JSONValue>;
-			}
-		}[];
-		functions: {}[];
-	}
+    classes: {
+      class_name: string;
+      module: string;
+      params: Record<string, JSONValue>;
+      samples: {
+        experiment: Record<string, JSONValue>;
+        sample: Record<string, JSONValue>;
+      };
+    }[];
+    functions: {}[];
+  };
 }
 interface PackageReference {
   id: string;
@@ -62,4 +62,4 @@ interface ExperimentResult {
   metrics: Record<string, number>;
 }
 
-export type { Experiment, MateSummary, Result };
+export type { Experiment, MateSummary, Package, Result };

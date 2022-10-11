@@ -1,20 +1,19 @@
-/** @jsx h */
-import { h } from "preact";
-import { Experiment } from "./Interfaces.ts";
+import { Experiment } from "./Interfaces";
 // imports the CSS file called ExperimentOverview.css
 // import "./ExperimentOverview.css";
-import { asset } from "$fresh/runtime.ts";
 
-import Config from "../components/Config.tsx";
-import Training from "../components/Training.tsx";
-import Visualizations from "../components/Visualizations.tsx";
-import ExperimentControl from "../components/ExperimentControl.tsx";
+import Config from "./Config";
+import Training from "./Training";
+import Visualizations from "./Visualizations";
+import ExperimentControl from "./ExperimentControl";
 
-function Status(
-  { statusValue }: { statusValue: "running" | "run" | "never-run" },
-) {
+function Status({
+  statusValue,
+}: {
+  statusValue: "running" | "run" | "never-run";
+}) {
   const status = {
-    "running": (
+    running: (
       <div style={{ textAlign: "right", padding: 0 }}>
         <div
           style={{
@@ -37,16 +36,15 @@ function Status(
               backgroundColor: "white",
               border: "3px solid black",
             }}
-            class="loader"
-          >
-          </div>
+            className="loader"
+          ></div>
         </div>
       </div>
     ),
-    "run": (
+    run: (
       <div style={{ textAlign: "right" }}>
         <input
-          class="form-check-input mt-0"
+          className="form-check-input mt-0"
           style={{
             width: "25px",
             height: "25px",
@@ -73,7 +71,7 @@ function Status(
             border: "2px solid black",
           }}
           disabled
-          class="form-check-input mt-0"
+          className="form-check-input mt-0"
           type="checkbox"
           value=""
           aria-label="Checkbox for following text input"
@@ -81,23 +79,22 @@ function Status(
       </div>
     ),
   };
-  return (
-    status[statusValue]
-  );
+  return status[statusValue];
 }
-export default function (
-  { experiments, setSections, setSection }: {
-    experiments: Experiment[];
-    setSections: (sections: Record<string, h.JSX.Element>) => void;
-    setSection: (section: string) => void;
-  },
-) {
+export default function ({
+  experiments,
+  setSections,
+  setSection,
+}: {
+  experiments: Experiment[];
+  setSections: (sections: Record<string, JSX.Element>) => void;
+  setSection: (section: string) => void;
+}) {
   return (
     <div style={{ textAlign: "center", marginTop: "10vh" }}>
-      <link rel="stylesheet" href={asset("ExperimentOverview.css")} />
       <button
         type="button"
-        class="btn btn-success"
+        className="btn btn-success"
         style={{
           textAlign: "center",
           marginBottom: "10px",
@@ -114,28 +111,26 @@ export default function (
         <div
           onClick={() => {
             setSections({
-              "Control": <ExperimentControl experiment={experiment} />,
-              "Config": <Config />,
-              "Training": <Training />,
-              "Visualizations": <Visualizations />,
-            } as Record<string, h.JSX.Element>);
+              Control: <ExperimentControl experiment={experiment} />,
+              Config: <Config />,
+              Training: <Training />,
+              Visualizations: <Visualizations />,
+            } as Record<string, JSX.Element>);
             setSection("Control");
           }}
-          class="card"
+          className="card"
           style={{
-            "width": "25rem",
-            "display": "block",
-            "marginLeft": "auto",
-            "marginRight": "auto",
+            width: "25rem",
+            display: "block",
+            marginLeft: "auto",
+            marginRight: "auto",
             marginBottom: "5px",
             backgroundColor: "#D0FFC6",
           }}
         >
-          <div class="card-body">
-            <h5 class="card-title">{experiment.name}</h5>
-            <p class="card-text">
-              {experiment.description}
-            </p>
+          <div className="card-body">
+            <h5 className="card-title">{experiment.name}</h5>
+            <p className="card-text">{experiment.description}</p>
             <table style={{ width: "100%" }}>
               <tbody>
                 <tr>
@@ -143,8 +138,7 @@ export default function (
                     <img
                       src="delete_icon.png"
                       style={{ height: "20px", width: "20px" }}
-                    >
-                    </img>
+                    ></img>
                   </td>
                   <td>
                     <Status statusValue={experiment.status} />
